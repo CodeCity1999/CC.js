@@ -1,5 +1,5 @@
 // CC
-// Code City   V 0.0.0.42 
+// Code City   V 0.0.28.31 
 // Built in 1400
 
 const img = 
@@ -209,13 +209,13 @@ var C =
         isOnline: function (){ if(navigator.onLine){ return true; } else{ return false } },
         refresh: function (){ location.reload(true); },
         back: function () { history.back(); },
-        W: function (select)
+        width: function (select)
         {
             if (select == "window") { return window.innerWidth; } 
             else if (select == "body") { return document.body.clientWidth; } 
             else { return document.querySelector(select).clientWidth; } 
         },
-        H: function (select)
+        height: function (select)
         {
             if (select == "window") {return window.innerHeight; } 
             else if (select == "body") { return document.body.clientHeight; } 
@@ -373,7 +373,8 @@ var C =
             });
         }
     },
-    date: new class _date{
+    date: new class _date
+    {
         constructor(){
             var faDateYear = new Intl.DateTimeFormat("fa", { year: "numeric" }).format;
 
@@ -450,10 +451,56 @@ var C =
             document.querySelector("#" + id).remove();
         }
     },
-    getMouse: {X: 0, Y: 0}
+    getMouse: {X: 0, Y: 0},
+    ajax = function ($ = {success: function() {}, method: "POST", url: "", data: {}})   
+    {
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function ()
+        {
+            data =
+            {
+                text: this.responseText,
+                type: this.responseType,
+                url: this.responseURL,
+                xml: this.responseXML
+            };
+            $.success();
+        }
+        var send = "";
+        var keys = Object.keys($.data);
+        var value = Object.values($.data);
+        for (let i = 0; i < keys.length; i++) 
+        { send += keys[i] + "=" + value[i] + "&"; }
+        if ($.method == "get" || $.method == "GET")
+        {
+            xhttp.open($.method, $.url + "?" + send);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send();
+        }
+        else if ($.method == "post" || $.method == "POST")
+        {
+            xhttp.open($.method, $.url);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(send);
+        } 
+    },
+    get: function (url = "", data = "")
+    {
+        const xhttp = new XMLHttpRequest();
+        xhttp.open("GET", url + "?" + data);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send();	
+    },
+    post: function (url = "", data = "")
+    {
+        const xhttp = new XMLHttpRequest();
+        xhttp.open("POST", url);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send(data);	
+    }
 }
 
-
+var data = {text: "", type: "", url: "", xml: ""};
 
 
 
