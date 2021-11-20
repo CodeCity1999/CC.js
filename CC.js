@@ -1,5 +1,5 @@
 // CC
-// Code City   V 0.0.28.61 
+// Code City   V 0.0.29.75 
 // Built in 1400
 
 const img = 
@@ -452,7 +452,7 @@ var C =
         }
     },
     getMouse: {X: 0, Y: 0},
-    ajax = function ($ = {success: function() {}, method: "POST", url: "", data: {}})   
+    ajax: function ($ = {success: function() {}, method: "POST", url: "", data: {}})   
     {
         const xhttp = new XMLHttpRequest();
         xhttp.onload = function ()
@@ -498,10 +498,16 @@ var C =
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send(data);	
     },
-    sleep = function (ms)
+    sleep: function (ms)
     {
         var now = new Date().getTime();
         while(new Date().getTime() < now + ms); 
+    },
+    stopCode: function (code = function (){})
+    {
+        var c = code();
+        var success = true;
+        while (success) {  if (c != true) { success = false; }; }
     }
 }
 
