@@ -1,5 +1,5 @@
 // CC
-// Code City   V 0.0.28.31 
+// Code City   V 0.0.28.61 
 // Built in 1400
 
 const img = 
@@ -497,6 +497,11 @@ var C =
         xhttp.open("POST", url);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send(data);	
+    },
+    sleep = function (ms)
+    {
+        var now = new Date().getTime();
+        while(new Date().getTime() < now + ms); 
     }
 }
 
